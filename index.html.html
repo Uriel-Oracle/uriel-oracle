@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>המלאך אוריאל</title>
+  <style>
+
+    :root {
+      --bg1:#140a24;
+      --bg2:#2a1248;
+      --gold:#e9c766;
+      --text:#faf5ff;
+      --muted:#d9caeb;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, "Noto Sans Hebrew", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(233,199,102,.18), transparent 22%),
+        linear-gradient(180deg, var(--bg2), var(--bg1) 62%);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px 16px 40px;
+    }
+    .app {
+      width:min(100%, 520px);
+      text-align:center;
+    }
+    .portal {
+      animation:fadeIn .9s ease;
+      margin-bottom:24px;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+    h1 {
+      margin:0;
+      font-size:clamp(28px, 5vw, 40px);
+      line-height:1.18;
+      text-shadow:0 0 16px rgba(233,199,102,.15);
+    }
+    .name {
+      margin-top:10px;
+      font-size:18px;
+      color:var(--muted);
+    }
+    .tagline {
+      margin-top:8px;
+      font-size:20px;
+    }
+    button {
+      margin-top:18px;
+      border:0;
+      border-radius:999px;
+      padding:15px 30px;
+      font-size:22px;
+      font-weight:700;
+      cursor:pointer;
+      color:#3b1b50;
+      background:linear-gradient(180deg, #fff6b7, var(--gold));
+      box-shadow:0 10px 24px rgba(0,0,0,.22), 0 0 18px rgba(233,199,102,.18);
+    }
+    .stage {
+      position:relative;
+      width:min(100%, 390px);
+      margin:26px auto 0;
+    }
+    .card {
+      width:100%;
+      aspect-ratio:909 / 1252;
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 20px 50px rgba(0,0,0,.42), 0 0 22px rgba(233,199,102,.14);
+      background:rgba(255,255,255,.02);
+    }
+    .card img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    .sparkles {
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      width:88%;
+      height:120px;
+      pointer-events:none;
+      opacity:0;
+      z-index:3;
+    }
+    .sparkles.top { top:10px; }
+    .sparkles.bottom { bottom:10px; transform:translateX(-50%) scaleY(-1); }
+    .sparkles.show { animation:sparkleFade 1.45s ease forwards; }
+    .sparkles::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 10% 46%, rgba(255,234,186,.98) 0 2px, transparent 3px),
+        radial-gradient(circle at 22% 28%, rgba(255,214,104,.98) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 34% 58%, rgba(255,247,224,.98) 0 2px, transparent 3px),
+        radial-gradient(circle at 46% 34%, rgba(247,196,91,.98) 0 2px, transparent 3px),
+        radial-gradient(circle at 58% 54%, rgba(255,239,187,.98) 0 1.7px, transparent 3px),
+        radial-gradient(circle at 72% 38%, rgba(255,213,110,.98) 0 2px, transparent 3px),
+        radial-gradient(circle at 84% 61%, rgba(255,248,228,.98) 0 2px, transparent 3px),
+        radial-gradient(circle at 94% 42%, rgba(255,206,95,.98) 0 1.8px, transparent 3px);
+      animation:drift 1.45s ease-out forwards;
+    }
+    @keyframes sparkleFade {
+      0% { opacity:0; }
+      15% { opacity:1; }
+      100% { opacity:0; }
+    }
+    @keyframes drift {
+      0% { transform:translateY(8px) scale(.97); opacity:0; }
+      18% { transform:translateY(0) scale(1); opacity:1; }
+      100% { transform:translateY(-18px) scale(1.02); opacity:0; }
+    }
+    .status {
+      min-height:28px;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:15px;
+    }
+  
+  /* Remove mobile tap highlight and focus outline */
+  button, .btn, .button {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:focus, button:active,
+  .btn:focus, .btn:active,
+  .button:focus, .button:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+
+    .card.pulse {
+      animation: mandalaPulse 0.85s ease;
+    }
+    @keyframes mandalaPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="portal">
+      <h1>המלאך אוריאל</h1>
+      <div class="name">מסרים מאת מוריאל רוטהולץ</div>
+      <div class="tagline">רגע של אור</div>
+      <button id="drawBtn">שלפי קלף</button>
+    </div>
+
+    <section class="stage">
+      <div class="sparkles top" id="sparkTop"></div>
+      <div class="card">
+        <img id="cardImg" alt="קלף אוריאל">
+      </div>
+      <div class="sparkles bottom" id="sparkBottom"></div>
+    </section>
+
+    <div class="status" id="status">לחצי על “שלפי קלף”</div>
+  </main>
+
+  <script>
+    const cards = [
+    { id: 1, front: "https://drive.google.com/thumbnail?id=1rLhcfACJQQ5G6zkuO1OWcTECgaVvVltC&sz=w1200" },
+    { id: 2, front: "https://drive.google.com/thumbnail?id=1h41_cZRgF-M695pupNLIgM-fvctyTKaH&sz=w1200" },
+    { id: 3, front: "https://drive.google.com/thumbnail?id=1BZ38S8_DfdO7wjF6gyNggRf18kqmjbDL&sz=w1200" },
+    { id: 4, front: "https://drive.google.com/thumbnail?id=1eiZNa2vok5_Lv5JkYLqEb7LdgsISstCq&sz=w1200" },
+    { id: 5, front: "https://drive.google.com/thumbnail?id=1zluyY7Wp7ysjl3q9xupCIWm70JlRQZLR&sz=w1200" },
+    { id: 6, front: "https://drive.google.com/thumbnail?id=1QZzbff-9pJAFOI4NP5pmQB5cuZ6vWg5d&sz=w1200" },
+    { id: 7, front: "https://drive.google.com/thumbnail?id=13pHT2SPP1vbgldbOqEorjmCGBiibCkl2&sz=w1200" },
+    { id: 8, front: "https://drive.google.com/thumbnail?id=1R6a32bbDg_IUdGp3pQGn9doSe3LBcX52&sz=w1200" },
+    { id: 9, front: "https://drive.google.com/thumbnail?id=1vONJU9AxOAZ4t1KWBQbYCeJdMi--5ObG&sz=w1200" },
+    { id: 10, front: "https://drive.google.com/thumbnail?id=1gb1Rg_st_QXy0RxMvxOoD1s2CX_3XpkO&sz=w1200" },
+    { id: 11, front: "https://drive.google.com/thumbnail?id=1zlh80sMVColgFvl9nF46Rc-2s3lO4J49&sz=w1200" },
+    { id: 12, front: "https://drive.google.com/thumbnail?id=1ZMeTy8xJG9mDgyDpxgArOc9YhrYfGMdt&sz=w1200" },
+    { id: 13, front: "https://drive.google.com/thumbnail?id=18KVtRCs1axn4n0uqh_byGKvK03JpOGZ2&sz=w1200" },
+    { id: 14, front: "https://drive.google.com/thumbnail?id=1wdbbw-B5fh5F013hjphJSTXQm_M7PCxH&sz=w1200" },
+    { id: 15, front: "https://drive.google.com/thumbnail?id=16roXeOJl8sJcp9O7ViJuwakC40EDwyUD&sz=w1200" },
+    { id: 16, front: "https://drive.google.com/thumbnail?id=1bLvxcNVD6GYcUiMEciYHtJl8DXqqEWnC&sz=w1200" },
+    { id: 17, front: "https://drive.google.com/thumbnail?id=1jjA-hNtUmBFvp3GUo6-jW8u8WJe0cIaC&sz=w1200" },
+    { id: 18, front: "https://drive.google.com/thumbnail?id=1feGkFLn3GymMXHPpE__iQYrnkLB4RlGB&sz=w1200" },
+    { id: 19, front: "https://drive.google.com/thumbnail?id=1JFKjfu-SEhvGY9ZZOJAf-yixPnToh8gm&sz=w1200" },
+    { id: 20, front: "https://drive.google.com/thumbnail?id=1tnw7gTHLasZ0FS3D_570RrcMUZHUxcJq&sz=w1200" },
+    { id: 21, front: "https://drive.google.com/thumbnail?id=1VCzJIDBIgH6wTs2wy6D5Xps49p6ZFQG9&sz=w1200" },
+    { id: 22, front: "https://drive.google.com/thumbnail?id=1Ptwik_ChYquVm7oXQsA72MUuKO5iXWf6&sz=w1200" },
+    { id: 23, front: "https://drive.google.com/thumbnail?id=1aDkGQOGESZSHCHy1uKQ-utsj5UlzhD_8&sz=w1200" },
+    { id: 24, front: "https://drive.google.com/thumbnail?id=1dTWGl1ScVT7jhIhYQVpbWJy9fOt3QcBe&sz=w1200" },
+    { id: 25, front: "https://drive.google.com/thumbnail?id=18W2wa3GmMJPOtFr6ygTjwr0xCRetVYWi&sz=w1200" },
+    { id: 26, front: "https://drive.google.com/thumbnail?id=1Oa2vAzuToCriEs0RBdKxyFEaYGz4wRf8&sz=w1200" },
+    { id: 27, front: "https://drive.google.com/thumbnail?id=1zTEPh_UkNktXYxGYaSXTMvJwSj8nb_Ub&sz=w1200" },
+    { id: 28, front: "https://drive.google.com/thumbnail?id=17CfXuFDa49rhSj6OuAEm8yns1dXJatGy&sz=w1200" },
+    { id: 29, front: "https://drive.google.com/thumbnail?id=1np9S6Mkjj2OyNUmoa5s3OUQu1TIFe-WY&sz=w1200" },
+    { id: 30, front: "https://drive.google.com/thumbnail?id=1mA6A48iBg-TdU6rVIJSss6GpKzTEKR8h&sz=w1200" },
+    { id: 31, front: "https://drive.google.com/thumbnail?id=1rA9mnUVLoCXcbmWmAsb3R0rsaQOJaFsm&sz=w1200" },
+    { id: 32, front: "https://drive.google.com/thumbnail?id=12Ic5SNLh16h4XI-qDvbdtBEI_BfImuUy&sz=w1200" },
+    { id: 33, front: "https://drive.google.com/thumbnail?id=1sxw6QVcOdxWLCSTcpISs-KHfJqTb9tlX&sz=w1200" },
+    { id: 34, front: "https://drive.google.com/thumbnail?id=1UisaMd0SsyAozSH0tnAzDSSQPBOrWy_6&sz=w1200" },
+    { id: 35, front: "https://drive.google.com/thumbnail?id=1A6F4KNZDlY5VDF7olJwyXqMlV1h1UNmX&sz=w1200" },
+    { id: 36, front: "https://drive.google.com/thumbnail?id=1QNo6VhufZjzzV92GMaZStHFFm6HRSAj8&sz=w1200" },
+    { id: 37, front: "https://drive.google.com/thumbnail?id=1-7-AA5Jxy9pnZslRLND_HNRRvkgriyqq&sz=w1200" },
+    { id: 38, front: "https://drive.google.com/thumbnail?id=1_oflLoH6E38J_99l-48WwncyqnuXI_3f&sz=w1200" },
+    { id: 39, front: "https://drive.google.com/thumbnail?id=1T9Njx7ykMO4ooUCIcwiabf1F6QC4rmuS&sz=w1200" },
+    { id: 40, front: "https://drive.google.com/thumbnail?id=1mSXfGdXEyXMN0HNYANpHuodDUKzQ0lRi&sz=w1200" },
+    { id: 41, front: "https://drive.google.com/thumbnail?id=18HME5rXjyotq_jKnhWVU8CLk2eryotA5&sz=w1200" },
+    { id: 42, front: "https://drive.google.com/thumbnail?id=1AEq5U4L8x5QiYuaX3WnfE3SQBm8WTOvT&sz=w1200" },
+    { id: 43, front: "https://drive.google.com/thumbnail?id=1oNAyzI4_nuAQWn1YP4BEEOmBBL1JCtjU&sz=w1200" },
+    { id: 44, front: "https://drive.google.com/thumbnail?id=1D2iWF540scBoBj1kL-87gpk9RHVBLXUr&sz=w1200" },
+    { id: 45, front: "https://drive.google.com/thumbnail?id=1nGgh1cXxkoIloAWDE2ZHyG2xXHAptVfs&sz=w1200" },
+    { id: 46, front: "https://drive.google.com/thumbnail?id=11Fi2Bmvx46vVX3ypNnznerQcPZbkh589&sz=w1200" },
+    { id: 47, front: "https://drive.google.com/thumbnail?id=1Yxzf-ViX7UpPJrUa0clV5qQb2DK0-Irj&sz=w1200" },
+    { id: 48, front: "https://drive.google.com/thumbnail?id=1SQpb-Tng88OMvawmWI5mqgnzDtbm3UGW&sz=w1200" },
+    { id: 49, front: "https://drive.google.com/thumbnail?id=1vYowPOLZbvR5F5HiZIf4a_uQ_y9GQlpf&sz=w1200" },
+    { id: 50, front: "https://drive.google.com/thumbnail?id=1uWZYpXqtZQgkjthNvOZso4tpXgDIKuoz&sz=w1200" },
+    { id: 51, front: "https://drive.google.com/thumbnail?id=1txi2ggkjkBaAqUpxcidRSQS9DBqYJONj&sz=w1200" },
+    { id: 52, front: "https://drive.google.com/thumbnail?id=1aQKu6W_b9ZjTM1BNBMPFNpzd9JfKC5eC&sz=w1200" },
+    { id: 53, front: "https://drive.google.com/thumbnail?id=1ukHPgGwuZQv6GIrzdh4xSGaDgTND7S7i&sz=w1200" },
+    { id: 54, front: "https://drive.google.com/thumbnail?id=1A9BVsNXsu4dtbwz11qe3DeaKq9jZgdej&sz=w1200" },
+    { id: 55, front: "https://drive.google.com/thumbnail?id=11tlGnsjdQXToo7tNeKEEfulK1kYN8DiI&sz=w1200" },
+    { id: 56, front: "https://drive.google.com/thumbnail?id=1O6hJ6tjmcD5CjYB1BCQwTmH73N_WQJQK&sz=w1200" },
+    { id: 57, front: "https://drive.google.com/thumbnail?id=1MIxSdO8lIOYGKcN47E5sm6aiFibObIcv&sz=w1200" },
+    { id: 58, front: "https://drive.google.com/thumbnail?id=1biICoKOI8IBNFoB4olDWVQqUUft5oPhX&sz=w1200" }
+    ];
+    const backUrl = "https://drive.google.com/thumbnail?id=1bHJcw9TbOHY4x5PldCCflYWzSROO3aP5&sz=w1200";
+    const cardImg = document.getElementById("cardImg");
+    const statusEl = document.getElementById("status");
+    const sparkTop = document.getElementById("sparkTop");
+    const sparkBottom = document.getElementById("sparkBottom");
+    const drawBtn = document.getElementById("drawBtn");
+    const cardWrap = document.querySelector(".card");
+    let isDrawing = false;
+
+    function flashSparkles() {
+      const sparkTop = document.getElementById("sparkTop");
+      const sparkBottom = document.getElementById("sparkBottom");
+
+      sparkTop.classList.remove("show");
+      sparkBottom.classList.remove("show");
+
+      void sparkTop.offsetWidth;
+      void sparkBottom.offsetWidth;
+
+      sparkTop.classList.add("show");
+      sparkBottom.classList.add("show");
+    }
+
+    function drawCard() {
+      if (isDrawing) return;
+      isDrawing = true;
+
+      drawBtn.disabled = true;
+      drawBtn.style.opacity = "0.7";
+
+      cardWrap.classList.remove("pulse");
+      void cardWrap.offsetWidth;
+      cardWrap.classList.add("pulse");
+
+      cardImg.src = backUrl;
+      statusEl.textContent = "הקלף נפתח…";
+
+      const picked = cards[Math.floor(Math.random() * cards.length)];
+
+      setTimeout(() => {
+        cardImg.src = picked.front;
+        flashSparkles();
+        statusEl.textContent = "קלף מספר " + picked.id;
+        drawBtn.disabled = false;
+        drawBtn.style.opacity = "1";
+        isDrawing = false;
+      }, 520);
+    }
+
+    cardImg.onerror = function() {
+      statusEl.textContent = "לא ניתן לטעון את התמונה. כנראה שצריך לפתוח את קבצי Google Drive לשיתוף ציבורי.";
+      drawBtn.disabled = false;
+    };
+
+    cardImg.src = backUrl;
+    drawBtn.addEventListener("click", drawCard);
+  </script>
+</body>
+</html>
