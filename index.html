@@ -303,12 +303,20 @@ if (count % 7 === 0) {
 
     btn.style.marginTop = "12px";
     btn.style.fontSize = "14px";
-    btn.style.opacity = "0.6";
+    btn.style.opacity = "0.8";
     btn.style.cursor = "pointer";
     btn.style.textAlign = "center";
 
+   btn.style.color = "#e9c766";
+btn.style.fontWeight = "600";
+btn.style.borderBottom = "1px solid #e9c766";
+btn.style.display = "inline-block";
     btn.onclick = () => {
-        window.open("https://wa.me/972503138035");
+      window.open(
+    "https://wa.me/972503138035?text=" +
+    encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי ✨"),
+    "_blank"
+);
     };
 
 }
