@@ -311,13 +311,13 @@ if (count % 7 === 0) {
         window.open("https://wa.me/972503138035");
     };
 
-    cardWrap.insertAdjacentElement("afterend", btn);
 }
         flashSparkles();
         statusEl.textContent = "קלף מספר " + picked.id;
         drawBtn.disabled = false;
         drawBtn.style.opacity = "1";
         isDrawing = false;
+         cardWrap.insertAdjacentElement("afterend", btn);
       }, 520);
     }
 
