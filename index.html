@@ -181,6 +181,12 @@
   </main>
 
   <script>
+    let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
     const cards = [
     { id: 1, front: "https://drive.google.com/thumbnail?id=1rLhcfACJQQ5G6zkuO1OWcTECgaVvVltC&sz=w1200" },
     { id: 2, front: "https://drive.google.com/thumbnail?id=1h41_cZRgF-M695pupNLIgM-fvctyTKaH&sz=w1200" },
@@ -286,6 +292,36 @@
 count++;
 localStorage.setItem("drawCount", count);
 
+if (count === 1 && deferredPrompt && !localStorage.getItem("appInstalled")) {
+
+    let installBtn = document.createElement("div");
+  installBtn.id = "installBtn";
+    installBtn.innerText = "רגע של אור בכף ידך";
+
+    installBtn.style.marginTop = "14px";
+    installBtn.style.fontSize = "14px";
+    installBtn.style.opacity = "0.75";
+    installBtn.style.cursor = "pointer";
+    installBtn.style.textAlign = "center";
+    installBtn.style.color = "#e9c766";
+    installBtn.style.fontWeight = "500";
+
+    installBtn.onclick = async () => {
+        deferredPrompt.prompt();
+
+        const result = await deferredPrompt.userChoice;
+
+        if (result.outcome === 'accepted') {
+            localStorage.setItem("appInstalled", "true");
+        }
+
+        deferredPrompt = null;
+        installBtn.remove();
+    };
+
+    cardWrap.insertAdjacentElement("afterend", installBtn);
+}
+      
 let oldBtn = document.getElementById("whatsappBtn");
 if (oldBtn) oldBtn.remove();
 
