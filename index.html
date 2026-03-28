@@ -224,22 +224,19 @@
       font-size:15px;
       transition:opacity .3s ease;
     }
-/* === SHARE DIAMOND === */
+/* === SHARE DIAMOND FINAL === */
 
 .share-diamond {
-  width:26px;
-  height:26px;
+  width:20px;
+  height:20px;
   position:relative;
   cursor:pointer;
   flex:0 0 auto;
 
   transform:rotate(45deg);
-  transition:all .3s ease;
-
-  animation:diamondBreath 3.2s ease-in-out infinite;
+  transition:transform .2s ease;
 }
 
-/* ромб */
 .share-diamond::before {
   content:"";
   position:absolute;
@@ -248,21 +245,17 @@
 
   background:linear-gradient(
     180deg,
-    rgba(255,246,183,0.28),
-    rgba(233,199,102,0.20)
+    rgba(255,246,183,0.22),
+    rgba(233,199,102,0.18)
   );
 
-  border:1px solid rgba(233,199,102,0.55);
+  border:1px solid rgba(233,199,102,0.45);
 
   box-shadow:
-    0 0 12px rgba(233,199,102,0.18),
-    inset 0 0 10px rgba(255,255,255,0.06);
-
-  transition:all .3s ease;
-  animation:diamondGlow 3.2s ease-in-out infinite;
+    0 0 10px rgba(233,199,102,0.15),
+    inset 0 0 6px rgba(255,255,255,0.05);
 }
 
-/* стрелка */
 .share-diamond::after {
   content:"↗";
   position:absolute;
@@ -272,53 +265,25 @@
   align-items:center;
   justify-content:center;
 
-  font-size:15px;
-  font-weight:700;
-  color:#f8e6a6;
+  font-size:14px;
+  font-weight:900;
+  color:#f6e3a3;
 
-  transform:rotate(-45deg);
-}
-
-/* дыхание */
-@keyframes diamondBreath {
-  0% { transform:rotate(45deg) scale(1); }
-  50% { transform:rotate(45deg) scale(1.06); }
-  100% { transform:rotate(45deg) scale(1); }
-}
-
-/* свечение */
-@keyframes diamondGlow {
-  0% {
-    box-shadow:
-      0 0 10px rgba(233,199,102,0.15),
-      inset 0 0 8px rgba(255,255,255,0.05);
-  }
-  50% {
-    box-shadow:
-      0 0 20px rgba(233,199,102,0.35),
-      0 0 32px rgba(233,199,102,0.15),
-      inset 0 0 12px rgba(255,255,255,0.08);
-  }
-  100% {
-    box-shadow:
-      0 0 10px rgba(233,199,102,0.15),
-      inset 0 0 8px rgba(255,255,255,0.05);
-  }
+  transform:rotate(-45deg) translateY(-1px);
 }
 
 .share-diamond:hover {
-  transform:rotate(45deg) scale(1.14);
+  transform:rotate(45deg) scale(1.06);
 }
 
 .share-diamond:hover::before {
   box-shadow:
-    0 0 26px rgba(233,199,102,0.45),
-    0 0 40px rgba(233,199,102,0.22),
-    inset 0 0 14px rgba(255,255,255,0.12);
+    0 0 14px rgba(233,199,102,0.25),
+    inset 0 0 8px rgba(255,255,255,0.08);
 }
 
 .share-diamond:active {
-  transform:rotate(45deg) scale(0.92);
+  transform:rotate(45deg) scale(0.96);
 }
     .share-modal {
       position:fixed;
