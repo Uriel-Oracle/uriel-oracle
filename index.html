@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>המלאך אוריאל</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="shortcut icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#140a24">
 
@@ -78,22 +81,27 @@
       box-shadow:0 10px 24px rgba(0,0,0,.22), 0 0 18px rgba(233,199,102,.18);
     }
 
-    .install-box {
+    .action-box {
       opacity:0;
-      transform:translateY(-4px);
-      transition:opacity .8s ease, transform .8s ease;
+      transform:translateY(-6px) scale(.985);
+      transition:
+        opacity .65s ease,
+        transform .65s ease,
+        filter .65s ease;
       margin-top:10px;
-      min-height:40px;
+      min-height:42px;
       pointer-events:none;
+      filter:blur(1px);
     }
 
-    .install-box.show {
+    .action-box.show {
       opacity:1;
-      transform:translateY(0);
+      transform:translateY(0) scale(1);
       pointer-events:auto;
+      filter:blur(0);
     }
 
-    .install-btn {
+    .action-btn {
       display:inline-block;
       padding:10px 18px;
       border-radius:999px;
@@ -115,11 +123,13 @@
         box-shadow .25s ease,
         opacity .25s ease,
         background .25s ease;
-      opacity:.92;
+      opacity:.94;
       -webkit-tap-highlight-color: transparent;
+      max-width:min(100%, 360px);
+      line-height:1.45;
     }
 
-    .install-btn:hover {
+    .action-btn:hover {
       transform:translateY(-1px) scale(1.01);
       box-shadow:
         0 0 22px rgba(233,199,102,.18),
@@ -128,7 +138,7 @@
       background:rgba(255,255,255,.06);
     }
 
-    .install-btn:active {
+    .action-btn:active {
       transform:scale(.98);
     }
 
@@ -199,40 +209,111 @@
       100% { transform:translateY(-18px) scale(1.02); opacity:0; }
     }
 
+    .status-row {
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:28px;
+    }
+
     .status {
       min-height:24px;
-      margin-top:10px;
       color:var(--muted);
       font-size:15px;
+      transition:opacity .3s ease;
     }
 
-    .buy-box {
-      opacity:0;
-      transform:translateY(6px);
-      transition:opacity .55s ease, transform .55s ease;
-      margin-top:10px;
-      min-height:44px;
-    }
-
-    .buy-box.show {
-      opacity:0.92;
-      transform:translateY(0);
-    }
-
-    .buy-btn {
-      display:inline-block;
-      padding:10px 16px;
-      border-radius:16px;
+    .share-mini-btn {
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border:1px solid rgba(233,199,102,.28);
+      background:rgba(255,255,255,.04);
       color:#e9c766;
       font-size:14px;
-      font-weight:600;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      margin:0;
+      box-shadow:none;
+      cursor:pointer;
+      opacity:.8;
+      flex:0 0 auto;
+    }
+
+    .share-mini-btn:hover {
+      transform:scale(1.05);
+      opacity:1;
+    }
+
+    .share-mini-btn:active {
+      transform:scale(.96);
+    }
+
+    .share-modal {
+      position:fixed;
+      inset:0;
+      background:rgba(7,3,16,.62);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .35s ease;
+      padding:20px;
+      z-index:50;
+    }
+
+    .share-modal.show {
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .share-modal-card {
+      width:min(100%, 340px);
+      border-radius:24px;
+      padding:24px 20px 20px;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(233,199,102,.10), transparent 30%),
+        linear-gradient(180deg, #2a1248, #140a24 70%);
+      box-shadow:0 18px 50px rgba(0,0,0,.38), 0 0 22px rgba(233,199,102,.10);
       text-align:center;
-      text-decoration:none;
-      border:1px solid rgba(233,199,102,.28);
-      background:rgba(255,255,255,.03);
-      box-shadow:0 0 18px rgba(233,199,102,.07);
-      max-width:min(100%, 360px);
-      line-height:1.45;
+      transform:translateY(10px) scale(.98);
+      transition:transform .35s ease;
+    }
+
+    .share-modal.show .share-modal-card {
+      transform:translateY(0) scale(1);
+    }
+
+    .share-modal-title {
+      font-size:22px;
+      line-height:1.25;
+      margin-bottom:10px;
+      color:var(--text);
+    }
+
+    .share-modal-text {
+      font-size:15px;
+      line-height:1.5;
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .share-app-btn {
+      border:0;
+      border-radius:999px;
+      padding:12px 22px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      color:#3b1b50;
+      background:linear-gradient(180deg, #fff6b7, var(--gold));
+      box-shadow:0 10px 24px rgba(0,0,0,.18), 0 0 18px rgba(233,199,102,.14);
     }
 
     button, .btn, .button {
@@ -243,8 +324,9 @@
     button:focus, button:active,
     .btn:focus, .btn:active,
     .button:focus, .button:active,
-    .install-btn:focus, .install-btn:active,
-    .buy-btn:focus, .buy-btn:active {
+    .action-btn:focus, .action-btn:active,
+    .share-mini-btn:focus, .share-mini-btn:active,
+    .share-app-btn:focus, .share-app-btn:active {
       outline:none !important;
       box-shadow:none !important;
     }
@@ -269,8 +351,8 @@
 
       <button id="drawBtn">שלפי קלף</button>
 
-      <div id="installBox" class="install-box">
-        <a id="installBtn" href="#" class="install-btn">✨ רגע של אור בכף ידך</a>
+      <div id="actionBox" class="action-box">
+        <a id="actionBtn" href="#" target="_blank" class="action-btn"></a>
       </div>
     </div>
 
@@ -282,12 +364,21 @@
       <div class="sparkles bottom" id="sparkBottom"></div>
     </section>
 
-    <div class="status" id="status">לחצי על “שלפי קלף”</div>
-
-    <div id="buyBox" class="buy-box">
-      <a id="buyBtn" href="#" target="_blank" class="buy-btn"></a>
+    <div class="status-row">
+      <div class="status" id="status">לחצי על “שלפי קלף”</div>
+      <button id="shareMiniBtn" class="share-mini-btn" aria-label="שתפי את האפליקציה">↗</button>
     </div>
   </main>
+
+  <div id="shareModal" class="share-modal">
+    <div class="share-modal-card">
+      <div class="share-modal-title">✨ שתפי את האור שלך</div>
+      <div class="share-modal-text">
+        אם אהבת את המסרים, שלחי את רגע האור הזה הלאה
+      </div>
+      <button id="shareAppBtn" class="share-app-btn">שתפי את האפליקציה</button>
+    </div>
+  </div>
 
   <script>
     let deferredPrompt = null;
@@ -358,39 +449,121 @@
     const cardImg = document.getElementById("cardImg");
     const statusEl = document.getElementById("status");
     const drawBtn = document.getElementById("drawBtn");
-    const buyBox = document.getElementById("buyBox");
-    const buyBtn = document.getElementById("buyBtn");
-    const installBox = document.getElementById("installBox");
-    const installBtn = document.getElementById("installBtn");
+    const actionBox = document.getElementById("actionBox");
+    const actionBtn = document.getElementById("actionBtn");
     const cardWrap = document.querySelector(".card");
+    const shareMiniBtn = document.getElementById("shareMiniBtn");
+    const shareModal = document.getElementById("shareModal");
+    const shareAppBtn = document.getElementById("shareAppBtn");
 
     let isDrawing = false;
+
+    function showActionButton(text, href = "#", mode = "link") {
+      actionBtn.textContent = text;
+      actionBtn.href = href;
+
+      if (mode === "install") {
+        actionBtn.removeAttribute("target");
+      } else {
+        actionBtn.setAttribute("target", "_blank");
+      }
+
+      actionBox.classList.remove("show");
+      void actionBox.offsetWidth;
+      actionBox.classList.add("show");
+    }
+
+    function hideActionButton() {
+      actionBox.classList.remove("show");
+      actionBtn.textContent = "";
+      actionBtn.href = "#";
+    }
+
+    function updateActionButton(count) {
+      if (deferredPrompt && !localStorage.getItem("appInstalled")) {
+        showActionButton("✨ רגע של אור בכף ידך", "#", "install");
+        return;
+      }
+
+      if (count % 7 === 0) {
+        showActionButton(
+          "רוצה את הקלפים עם מסר אישי ממני?",
+          "https://wa.me/972503138035?text=" +
+          encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי"),
+          "link"
+        );
+      } else {
+        hideActionButton();
+      }
+    }
 
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
     });
 
-    installBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
+    actionBtn.addEventListener("click", async (e) => {
+      if (
+        deferredPrompt &&
+        !localStorage.getItem("appInstalled") &&
+        actionBtn.textContent.includes("רגע של אור בכף ידך")
+      ) {
+        e.preventDefault();
 
-      if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
 
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+          localStorage.setItem("appInstalled", "true");
+          hideActionButton();
+        }
 
-      if (outcome === "accepted") {
-        localStorage.setItem("appInstalled", "true");
-        installBox.classList.remove("show");
+        deferredPrompt = null;
+
+        let count = Number(localStorage.getItem("drawCount") || 0);
+        updateActionButton(count);
       }
-
-      deferredPrompt = null;
     });
 
     window.addEventListener("appinstalled", () => {
       localStorage.setItem("appInstalled", "true");
-      installBox.classList.remove("show");
       deferredPrompt = null;
+
+      let count = Number(localStorage.getItem("drawCount") || 0);
+      updateActionButton(count);
+    });
+
+    shareMiniBtn.addEventListener("click", () => {
+      shareModal.classList.add("show");
+    });
+
+    shareModal.addEventListener("click", (e) => {
+      if (e.target === shareModal) {
+        shareModal.classList.remove("show");
+      }
+    });
+
+    shareAppBtn.addEventListener("click", async () => {
+      const appUrl = window.location.origin + window.location.pathname;
+      const shareText = "✨ קיבלתי מסר מהמלאך אוריאל ורציתי לשתף אותך באפליקציה";
+
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: "המלאך אוריאל",
+            text: shareText,
+            url: appUrl
+          });
+        } else {
+          window.open(
+            "https://wa.me/?text=" + encodeURIComponent(shareText + " " + appUrl),
+            "_blank"
+          );
+        }
+      } catch (e) {
+      }
+
+      shareModal.classList.remove("show");
     });
 
     function flashSparkles() {
@@ -431,26 +604,7 @@
         count++;
         localStorage.setItem("drawCount", count);
 
-        if (count >= 1 && deferredPrompt && !localStorage.getItem("appInstalled")) {
-          installBox.classList.add("show");
-        }
-
-        buyBox.classList.remove("show");
-        buyBtn.textContent = "";
-
-        if (count % 49 === 0) {
-          buyBtn.textContent = "החפיסה הפיזית שלך עם המסר האישי, מחכה כאן";
-          buyBtn.href =
-            "https://wa.me/972503138035?text=" +
-            encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
-          buyBox.classList.add("show");
-        } else if (count % 7 === 0) {
-          buyBtn.textContent = "רוצה את הקלפים עם מסר אישי ממני?";
-          buyBtn.href =
-            "https://wa.me/972503138035?text=" +
-            encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
-          buyBox.classList.add("show");
-        }
+        updateActionButton(count);
 
         statusEl.textContent = "קלף מספר " + picked.id;
         drawBtn.disabled = false;
