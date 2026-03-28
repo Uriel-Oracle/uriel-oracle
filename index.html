@@ -1,13 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <link rel="manifest" href="manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>המלאך אוריאל</title>
-  <link rel="icon" type="image/png" href="icon.png">
-<link rel="shortcut icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
   <style>
 
     :root {
@@ -178,9 +175,48 @@
     </section>
 
     <div class="status" id="status">לחצי על “שלפי קלף”</div>
+    <div id="buyBox" style="opacity:0; transition:0.8s; margin-top:18px; min-height:24px;">
+      <a id="buyBtn"
+         href="#"
+         target="_blank"
+         style="
+           display:inline-block;
+           padding:10px 16px;
+           border-radius:16px;
+           color:#e9c766;
+           font-size:14px;
+           font-weight:600;
+           text-align:center;
+           text-decoration:none;
+           border-bottom:1px solid #e9c766;
+           opacity:0.8;
+         "></a>
+    </div>
+    <div id="installBox" style="opacity:0; transition:0.8s; margin-top:10px; min-height:22px;">
+      <a id="installBtn"
+         href="#"
+         style="
+           display:inline-block;
+           padding:8px 14px;
+           border-radius:16px;
+           color:#e9c766;
+           font-size:13px;
+           font-weight:500;
+           text-align:center;
+           text-decoration:none;
+           opacity:0.72;
+         ">רגע של אור בכף ידך</a>
+    </div>
   </main>
 
   <script>
+    let deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
     const cards = [
     { id: 1, front: "https://drive.google.com/thumbnail?id=1rLhcfACJQQ5G6zkuO1OWcTECgaVvVltC&sz=w1200" },
     { id: 2, front: "https://drive.google.com/thumbnail?id=1h41_cZRgF-M695pupNLIgM-fvctyTKaH&sz=w1200" },
@@ -247,6 +283,10 @@
     const sparkTop = document.getElementById("sparkTop");
     const sparkBottom = document.getElementById("sparkBottom");
     const drawBtn = document.getElementById("drawBtn");
+    const buyBox = document.getElementById("buyBox");
+    const buyBtn = document.getElementById("buyBtn");
+    const installBox = document.getElementById("installBox");
+    const installBtn = document.getElementById("installBtn");
     const cardWrap = document.querySelector(".card");
     let isDrawing = false;
 
@@ -282,44 +322,35 @@
 
       setTimeout(() => {
         cardImg.src = picked.front;
-        let count = Number(localStorage.getItem("drawCount") || 0);
-count++;
-localStorage.setItem("drawCount", count);
-
-let oldBtn = document.getElementById("whatsappBtn");
-if (oldBtn) oldBtn.remove();
-
-if (count % 7 === 0) {
-
-    let text = "רוצה את הקלפים עם מסר אישי ממני?";
-
-    if (count % 49 === 0) {
-        text = "החפיסה הפיזית שלך עם המסר האישי, מחכה כאן";
-    }
-
-    let btn = document.createElement("div");
-    btn.id = "whatsappBtn";
-  btn.innerText = text;
-
-    btn.style.marginTop = "12px";
-    btn.style.fontSize = "14px";
-    btn.style.opacity = "0.8";
-    btn.style.cursor = "pointer";
-    btn.style.textAlign = "center";
-
-   btn.style.color = "#e9c766";
-btn.style.fontWeight = "600";
-btn.style.borderBottom = "1px solid #e9c766";
-btn.style.display = "inline-block";
-    btn.onclick = () => {
-    window.open(
-        "https://wa.me/972503138035?text=" +
-        encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי"),
-        "_blank"
-    );
-};
-cardWrap.insertAdjacentElement("afterend", btn);
         flashSparkles();
+
+        let count = Number(localStorage.getItem("drawCount") || 0);
+        count++;
+        localStorage.setItem("drawCount", count);
+
+        if (count === 1 && deferredPrompt && !localStorage.getItem("appInstalled")) {
+          installBox.style.opacity = "0.72";
+        } else {
+          installBox.style.opacity = "0";
+        }
+
+        buyBox.style.opacity = "0";
+        buyBtn.textContent = "";
+
+        if (count % 49 === 0) {
+          buyBtn.textContent = "החפיסה הפיזית שלך עם המסר האישי, מחכה כאן";
+          buyBtn.href =
+            "https://wa.me/972503138035?text=" +
+            encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
+          buyBox.style.opacity = "0.8";
+        } else if (count % 7 === 0) {
+          buyBtn.textContent = "רוצה את הקלפים עם מסר אישי ממני?";
+          buyBtn.href =
+            "https://wa.me/972503138035?text=" +
+            encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
+          buyBox.style.opacity = "0.8";
+        }
+
         statusEl.textContent = "קלף מספר " + picked.id;
         drawBtn.disabled = false;
         drawBtn.style.opacity = "1";
