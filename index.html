@@ -224,36 +224,102 @@
       font-size:15px;
       transition:opacity .3s ease;
     }
+/* === SHARE DIAMOND === */
 
-    .share-mini-btn {
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      border:1px solid rgba(233,199,102,.28);
-      background:rgba(255,255,255,.04);
-      color:#e9c766;
-      font-size:14px;
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:0;
-      margin:0;
-      box-shadow:none;
-      cursor:pointer;
-      opacity:.8;
-      flex:0 0 auto;
-    }
+.share-diamond {
+  width:26px;
+  height:26px;
+  position:relative;
+  cursor:pointer;
+  flex:0 0 auto;
 
-    .share-mini-btn:hover {
-      transform:scale(1.05);
-      opacity:1;
-    }
+  transform:rotate(45deg);
+  transition:all .3s ease;
 
-    .share-mini-btn:active {
-      transform:scale(.96);
-    }
+  animation:diamondBreath 3.2s ease-in-out infinite;
+}
 
+/* ромб */
+.share-diamond::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:4px;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,246,183,0.28),
+    rgba(233,199,102,0.20)
+  );
+
+  border:1px solid rgba(233,199,102,0.55);
+
+  box-shadow:
+    0 0 12px rgba(233,199,102,0.18),
+    inset 0 0 10px rgba(255,255,255,0.06);
+
+  transition:all .3s ease;
+  animation:diamondGlow 3.2s ease-in-out infinite;
+}
+
+/* стрелка */
+.share-diamond::after {
+  content:"↗";
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:15px;
+  font-weight:700;
+  color:#f8e6a6;
+
+  transform:rotate(-45deg);
+}
+
+/* дыхание */
+@keyframes diamondBreath {
+  0% { transform:rotate(45deg) scale(1); }
+  50% { transform:rotate(45deg) scale(1.06); }
+  100% { transform:rotate(45deg) scale(1); }
+}
+
+/* свечение */
+@keyframes diamondGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba(233,199,102,0.15),
+      inset 0 0 8px rgba(255,255,255,0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(233,199,102,0.35),
+      0 0 32px rgba(233,199,102,0.15),
+      inset 0 0 12px rgba(255,255,255,0.08);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba(233,199,102,0.15),
+      inset 0 0 8px rgba(255,255,255,0.05);
+  }
+}
+
+.share-diamond:hover {
+  transform:rotate(45deg) scale(1.14);
+}
+
+.share-diamond:hover::before {
+  box-shadow:
+    0 0 26px rgba(233,199,102,0.45),
+    0 0 40px rgba(233,199,102,0.22),
+    inset 0 0 14px rgba(255,255,255,0.12);
+}
+
+.share-diamond:active {
+  transform:rotate(45deg) scale(0.92);
+}
     .share-modal {
       position:fixed;
       inset:0;
@@ -366,7 +432,7 @@
 
     <div class="status-row">
       <div class="status" id="status">לחצי על “שלפי קלף”</div>
-      <button id="shareMiniBtn" class="share-mini-btn" aria-label="שתפי את האפליקציה">↗</button>
+   <div id="shareMiniBtn" class="share-diamond" aria-label="שתפי את האפליקציה"></div> 
     </div>
   </main>
 
