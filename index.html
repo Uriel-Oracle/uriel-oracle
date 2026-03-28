@@ -321,6 +321,51 @@
       transform:translateY(0) scale(1);
     }
 
+    .ios-hint {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,3,16,0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.ios-hint-card {
+  background: linear-gradient(180deg,#3c1a5b,#1e0b2f);
+  color: #fff;
+  padding: 22px;
+  border-radius: 18px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.ios-hint-title {
+  font-size: 17px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.ios-hint-text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ios-hint-small {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.ios-hint-btn {
+  margin-top: 18px;
+  background: linear-gradient(180deg,#f6e7a3,#e8c96b);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
     .share-modal-title {
       font-size:22px;
       line-height:1.25;
@@ -654,11 +699,60 @@
     cardImg.src = backUrl;
     drawBtn.addEventListener("click", drawCard);
 
+    function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator) && window.navigator.standalone;
+}
+
+function closeIosHint() {
+  document.getElementById('iosHint').style.display = 'none';
+}
+
+// показать подсказку
+window.addEventListener('load', () => {
+  if (isIOS() && !isInStandaloneMode()) {
+    document.getElementById('iosHint').style.display = 'flex';
+  }
+});
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("sw.js");
       });
     }
   </script>
+  <div id="iosHint" class="ios-hint">
+  <div class="ios-hint-card">
+    
+    <div class="ios-hint-title">
+      כדי שהאור הזה יהיה תמיד איתך ✨
+    </div>
+
+    <div class="ios-hint-text">
+      אפשר להוסיף את האפליקציה למסך הבית שלך.<br><br>
+
+      לחצי על כפתור השיתוף של הטלפון ⬆️<br>
+      (למעלה או למטה במסך, לא בתוך האפליקציה)<br><br>
+
+      גללי למטה<br>
+      ובחרי "הוסף למסך הבית"<br><br>
+
+      ואז – היא תמיד תהיה כאן, במרחק נגיעה 💫<br><br>
+
+      <span class="ios-hint-small">
+        אם לא מופיע כפתור השיתוף:<br>
+        לחצי על כתובת האתר שמופיעה במסך<br>
+        ואז כפתור השיתוף יופיע ✨
+      </span>
+    </div>
+
+    <button class="ios-hint-btn" onclick="closeIosHint()">
+      הבנתי
+    </button>
+
+  </div>
+</div>
 </body>
 </html>
