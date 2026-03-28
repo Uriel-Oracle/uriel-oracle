@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>המלאך אוריאל</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#140a24">
+
   <style>
     :root {
       --bg1:#140a24;
@@ -25,8 +28,8 @@
         linear-gradient(180deg, var(--bg2), var(--bg1) 62%);
       display:flex;
       justify-content:center;
-      align-items:center;
-      padding:24px 16px 40px;
+      align-items:flex-start;
+      padding:18px 16px 24px;
     }
 
     .app {
@@ -36,7 +39,7 @@
 
     .portal {
       animation:fadeIn .9s ease;
-      margin-bottom:24px;
+      margin-bottom:8px;
     }
 
     @keyframes fadeIn {
@@ -52,18 +55,18 @@
     }
 
     .name {
-      margin-top:10px;
+      margin-top:8px;
       font-size:18px;
       color:var(--muted);
     }
 
     .tagline {
-      margin-top:8px;
+      margin-top:6px;
       font-size:20px;
     }
 
     button {
-      margin-top:18px;
+      margin-top:14px;
       border:0;
       border-radius:999px;
       padding:15px 30px;
@@ -75,10 +78,64 @@
       box-shadow:0 10px 24px rgba(0,0,0,.22), 0 0 18px rgba(233,199,102,.18);
     }
 
+    .install-box {
+      opacity:0;
+      transform:translateY(-4px);
+      transition:opacity .8s ease, transform .8s ease;
+      margin-top:10px;
+      min-height:40px;
+      pointer-events:none;
+    }
+
+    .install-box.show {
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+
+    .install-btn {
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:999px;
+      color:#f6df9a;
+      font-size:14px;
+      font-weight:600;
+      text-align:center;
+      text-decoration:none;
+      letter-spacing:.2px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(233,199,102,.34);
+      box-shadow:
+        0 0 18px rgba(233,199,102,.10),
+        inset 0 0 12px rgba(255,255,255,.03);
+      backdrop-filter:blur(3px);
+      -webkit-backdrop-filter:blur(3px);
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        opacity .25s ease,
+        background .25s ease;
+      opacity:.92;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .install-btn:hover {
+      transform:translateY(-1px) scale(1.01);
+      box-shadow:
+        0 0 22px rgba(233,199,102,.18),
+        0 0 34px rgba(233,199,102,.08),
+        inset 0 0 12px rgba(255,255,255,.05);
+      background:rgba(255,255,255,.06);
+    }
+
+    .install-btn:active {
+      transform:scale(.98);
+    }
+
     .stage {
       position:relative;
       width:min(100%, 390px);
-      margin:26px auto 0;
+      margin:8px auto 0;
     }
 
     .card {
@@ -112,7 +169,6 @@
 
     .sparkles.top { top:10px; }
     .sparkles.bottom { bottom:10px; transform:translateX(-50%) scaleY(-1); }
-
     .sparkles.show { animation:sparkleFade 1.45s ease forwards; }
 
     .sparkles::before {
@@ -144,65 +200,39 @@
     }
 
     .status {
-      min-height:28px;
-      margin-top:16px;
+      min-height:24px;
+      margin-top:10px;
       color:var(--muted);
       font-size:15px;
     }
 
-    .install-box {
+    .buy-box {
       opacity:0;
-      transform:translateY(-4px);
-      transition:opacity .8s ease, transform .8s ease;
-      margin-top:12px;
+      transform:translateY(6px);
+      transition:opacity .55s ease, transform .55s ease;
+      margin-top:10px;
       min-height:44px;
-      pointer-events:none;
     }
 
-    .install-box.show {
-      opacity:1;
+    .buy-box.show {
+      opacity:0.92;
       transform:translateY(0);
-      pointer-events:auto;
     }
 
-    .install-btn {
+    .buy-btn {
       display:inline-block;
-      padding:10px 18px;
-      border-radius:999px;
-      color:#f6df9a;
+      padding:10px 16px;
+      border-radius:16px;
+      color:#e9c766;
       font-size:14px;
       font-weight:600;
       text-align:center;
       text-decoration:none;
-      letter-spacing:.2px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(233,199,102,.34);
-      box-shadow:
-        0 0 0 rgba(233,199,102,0),
-        0 0 18px rgba(233,199,102,.10),
-        inset 0 0 12px rgba(255,255,255,.03);
-      backdrop-filter:blur(3px);
-      -webkit-backdrop-filter:blur(3px);
-      transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        opacity .25s ease,
-        background .25s ease;
-      opacity:.92;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .install-btn:hover {
-      transform:translateY(-1px) scale(1.01);
-      box-shadow:
-        0 0 22px rgba(233,199,102,.18),
-        0 0 34px rgba(233,199,102,.08),
-        inset 0 0 12px rgba(255,255,255,.05);
-      background:rgba(255,255,255,.06);
-    }
-
-    .install-btn:active {
-      transform:scale(.98);
+      border:1px solid rgba(233,199,102,.28);
+      background:rgba(255,255,255,.03);
+      box-shadow:0 0 18px rgba(233,199,102,.07);
+      max-width:min(100%, 360px);
+      line-height:1.45;
     }
 
     button, .btn, .button {
@@ -213,7 +243,8 @@
     button:focus, button:active,
     .btn:focus, .btn:active,
     .button:focus, .button:active,
-    .install-btn:focus, .install-btn:active {
+    .install-btn:focus, .install-btn:active,
+    .buy-btn:focus, .buy-btn:active {
       outline:none !important;
       box-shadow:none !important;
     }
@@ -253,22 +284,8 @@
 
     <div class="status" id="status">לחצי על “שלפי קלף”</div>
 
-    <div id="buyBox" style="opacity:0; transition:0.8s; margin-top:18px; min-height:24px;">
-      <a id="buyBtn"
-         href="#"
-         target="_blank"
-         style="
-           display:inline-block;
-           padding:10px 16px;
-           border-radius:16px;
-           color:#e9c766;
-           font-size:14px;
-           font-weight:600;
-           text-align:center;
-           text-decoration:none;
-           border-bottom:1px solid #e9c766;
-           opacity:0.8;
-         "></a>
+    <div id="buyBox" class="buy-box">
+      <a id="buyBtn" href="#" target="_blank" class="buy-btn"></a>
     </div>
   </main>
 
@@ -352,10 +369,6 @@
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-
-      if (!localStorage.getItem("appInstalled")) {
-        installBox.classList.add("show");
-      }
     });
 
     installBtn.addEventListener("click", async (e) => {
@@ -418,11 +431,11 @@
         count++;
         localStorage.setItem("drawCount", count);
 
-        if (deferredPrompt && !localStorage.getItem("appInstalled")) {
+        if (count >= 1 && deferredPrompt && !localStorage.getItem("appInstalled")) {
           installBox.classList.add("show");
         }
 
-        buyBox.style.opacity = "0";
+        buyBox.classList.remove("show");
         buyBtn.textContent = "";
 
         if (count % 49 === 0) {
@@ -430,13 +443,13 @@
           buyBtn.href =
             "https://wa.me/972503138035?text=" +
             encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
-          buyBox.style.opacity = "0.8";
+          buyBox.classList.add("show");
         } else if (count % 7 === 0) {
           buyBtn.textContent = "רוצה את הקלפים עם מסר אישי ממני?";
           buyBtn.href =
             "https://wa.me/972503138035?text=" +
             encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי");
-          buyBox.style.opacity = "0.8";
+          buyBox.classList.add("show");
         }
 
         statusEl.textContent = "קלף מספר " + picked.id;
@@ -455,6 +468,12 @@
 
     cardImg.src = backUrl;
     drawBtn.addEventListener("click", drawCard);
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js");
+      });
+    }
   </script>
 </body>
 </html>
