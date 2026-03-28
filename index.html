@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>המלאך אוריאל</title>
+
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="shortcut icon" href="icon.png">
   <link rel="apple-touch-icon" href="icon.png">
@@ -224,67 +225,61 @@
       font-size:15px;
       transition:opacity .3s ease;
     }
-/* === SHARE DIAMOND FINAL === */
 
-.share-diamond {
-  width:20px;
-  height:20px;
-  position:relative;
-  cursor:pointer;
-  flex:0 0 auto;
+    /* SHARE DIAMOND FINAL */
+    .share-diamond {
+      width:20px;
+      height:20px;
+      position:relative;
+      cursor:pointer;
+      flex:0 0 auto;
+      transform:rotate(45deg);
+      transition:transform .2s ease;
+    }
 
-  transform:rotate(45deg);
-  transition:transform .2s ease;
-}
+    .share-diamond::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:4px;
+      background:linear-gradient(
+        180deg,
+        rgba(255,246,183,0.22),
+        rgba(233,199,102,0.18)
+      );
+      border:1px solid rgba(233,199,102,0.45);
+      box-shadow:
+        0 0 10px rgba(233,199,102,0.15),
+        inset 0 0 6px rgba(255,255,255,0.05);
+    }
 
-.share-diamond::before {
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:4px;
+    .share-diamond::after {
+      content:"↗";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:900;
+      color:#f6e3a3;
+      transform:rotate(-45deg) translateY(-1px);
+    }
 
-  background:linear-gradient(
-    180deg,
-    rgba(255,246,183,0.22),
-    rgba(233,199,102,0.18)
-  );
+    .share-diamond:hover {
+      transform:rotate(45deg) scale(1.06);
+    }
 
-  border:1px solid rgba(233,199,102,0.45);
+    .share-diamond:hover::before {
+      box-shadow:
+        0 0 14px rgba(233,199,102,0.25),
+        inset 0 0 8px rgba(255,255,255,0.08);
+    }
 
-  box-shadow:
-    0 0 10px rgba(233,199,102,0.15),
-    inset 0 0 6px rgba(255,255,255,0.05);
-}
+    .share-diamond:active {
+      transform:rotate(45deg) scale(0.96);
+    }
 
-.share-diamond::after {
-  content:"↗";
-  position:absolute;
-  inset:0;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:14px;
-  font-weight:900;
-  color:#f6e3a3;
-
-  transform:rotate(-45deg) translateY(-1px);
-}
-
-.share-diamond:hover {
-  transform:rotate(45deg) scale(1.06);
-}
-
-.share-diamond:hover::before {
-  box-shadow:
-    0 0 14px rgba(233,199,102,0.25),
-    inset 0 0 8px rgba(255,255,255,0.08);
-}
-
-.share-diamond:active {
-  transform:rotate(45deg) scale(0.96);
-}
     .share-modal {
       position:fixed;
       inset:0;
@@ -321,51 +316,6 @@
       transform:translateY(0) scale(1);
     }
 
-    .ios-hint {
-  position: fixed;
-  inset: 0;
-  background: rgba(7,3,16,0.75);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.ios-hint-card {
-  background: linear-gradient(180deg,#3c1a5b,#1e0b2f);
-  color: #fff;
-  padding: 22px;
-  border-radius: 18px;
-  max-width: 320px;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
-}
-
-.ios-hint-title {
-  font-size: 17px;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.ios-hint-text {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.ios-hint-small {
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.ios-hint-btn {
-  margin-top: 18px;
-  background: linear-gradient(180deg,#f6e7a3,#e8c96b);
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
     .share-modal-title {
       font-size:22px;
       line-height:1.25;
@@ -392,6 +342,55 @@
       box-shadow:0 10px 24px rgba(0,0,0,.18), 0 0 18px rgba(233,199,102,.14);
     }
 
+    .ios-hint {
+      position: fixed;
+      inset: 0;
+      background: rgba(7,3,16,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding:20px;
+    }
+
+    .ios-hint-card {
+      background: linear-gradient(180deg,#3c1a5b,#1e0b2f);
+      color: #fff;
+      padding: 22px;
+      border-radius: 18px;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    }
+
+    .ios-hint-title {
+      font-size: 17px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      line-height:1.45;
+    }
+
+    .ios-hint-text {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .ios-hint-small {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    .ios-hint-btn {
+      margin-top: 18px;
+      background: linear-gradient(180deg,#f6e7a3,#e8c96b);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      color:#3b1b50;
+    }
+
     button, .btn, .button {
       outline:none !important;
       -webkit-tap-highlight-color: transparent;
@@ -401,8 +400,8 @@
     .btn:focus, .btn:active,
     .button:focus, .button:active,
     .action-btn:focus, .action-btn:active,
-    .share-mini-btn:focus, .share-mini-btn:active,
-    .share-app-btn:focus, .share-app-btn:active {
+    .share-app-btn:focus, .share-app-btn:active,
+    .ios-hint-btn:focus, .ios-hint-btn:active {
       outline:none !important;
       box-shadow:none !important;
     }
@@ -442,7 +441,7 @@
 
     <div class="status-row">
       <div class="status" id="status">לחצי על “שלפי קלף”</div>
-   <div id="shareMiniBtn" class="share-diamond" aria-label="שתפי את האפליקציה"></div> 
+      <div id="shareMiniBtn" class="share-diamond" aria-label="שתפי את האפליקציה"></div>
     </div>
   </main>
 
@@ -456,8 +455,56 @@
     </div>
   </div>
 
+  <!-- iPhone Hint -->
+  <div id="iosHint" class="ios-hint">
+    <div class="ios-hint-card">
+      <div class="ios-hint-title">
+        כדי להוסיף את האפליקציה למסך הבית שלך ✨
+      </div>
+
+      <div class="ios-hint-text">
+        לחצי על כפתור השיתוף של הטלפון ⬆️<br>
+        (למעלה או למטה במסך, לא בתוך האפליקציה)<br><br>
+
+        גללי למטה<br>
+        ובחרי "הוסף למסך הבית"<br><br>
+
+        <span class="ios-hint-small">
+          אם לא מופיע כפתור השיתוף:<br>
+          לחצי על כתובת האתר שמופיעה במסך<br>
+          ואז כפתור השיתוף יופיע ✨
+        </span>
+      </div>
+
+      <button class="ios-hint-btn" onclick="closeIosHint()">הבנתי</button>
+    </div>
+  </div>
+
+  <!-- Android Hint -->
+  <div id="androidHint" class="ios-hint">
+    <div class="ios-hint-card">
+      <div class="ios-hint-title">
+        להתקנת האפליקציה ✨
+      </div>
+
+      <div class="ios-hint-text">
+        לחצי על שלוש הנקודות במסך<br>
+        ובחרי לפתוח בדפדפן של הטלפון<br>
+        (למשל Chrome)<br><br>
+
+        ואז לחצי שוב על הכפתור<br>
+        "רגע של אור בכף ידך" ✨<br><br>
+
+        והקלפים יהיו איתך תמיד 💫
+      </div>
+
+      <button class="ios-hint-btn" onclick="closeAndroidHint()">הבנתי</button>
+    </div>
+  </div>
+
   <script>
     let deferredPrompt = null;
+    let currentActionMode = "hidden";
 
     const cards = [
       { id: 1, front: "https://drive.google.com/thumbnail?id=1rLhcfACJQQ5G6zkuO1OWcTECgaVvVltC&sz=w1200" },
@@ -534,7 +581,30 @@
 
     let isDrawing = false;
 
+    function isIOS() {
+      return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
+    function isAndroid() {
+      return /android/i.test(navigator.userAgent);
+    }
+
+    function isStandalone() {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+    }
+
+    function closeIosHint() {
+      document.getElementById("iosHint").style.display = "none";
+    }
+
+    function closeAndroidHint() {
+      document.getElementById("androidHint").style.display = "none";
+    }
+
     function showActionButton(text, href = "#", mode = "link") {
+      currentActionMode = mode;
       actionBtn.textContent = text;
       actionBtn.href = href;
 
@@ -550,18 +620,30 @@
     }
 
     function hideActionButton() {
+      currentActionMode = "hidden";
       actionBox.classList.remove("show");
       actionBtn.textContent = "";
       actionBtn.href = "#";
     }
 
     function updateActionButton(count) {
-      if (deferredPrompt && !localStorage.getItem("appInstalled")) {
-        showActionButton("✨ רגע של אור בכף ידך", "#", "install");
+      if (!isStandalone()) {
+        if (count >= 1) {
+          showActionButton("✨ רגע של אור בכף ידך", "#", "install");
+        } else {
+          hideActionButton();
+        }
         return;
       }
 
-      if (count % 7 === 0) {
+      if (count % 49 === 0) {
+        showActionButton(
+          "החפיסה הפיזית שלך עם המסר האישי, מחכה כאן",
+          "https://wa.me/972503138035?text=" +
+          encodeURIComponent("היי מוריאל, אהבתי את הקלפים ואני רוצה לשמוע על החפיסה עם המסר האישי"),
+          "link"
+        );
+      } else if (count % 7 === 0) {
         showActionButton(
           "רוצה את הקלפים עם מסר אישי ממני?",
           "https://wa.me/972503138035?text=" +
@@ -573,30 +655,34 @@
       }
     }
 
+    async function handleInstallClick() {
+      if (isStandalone()) return;
+
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        try {
+          await deferredPrompt.userChoice;
+        } catch (e) {}
+        deferredPrompt = null;
+        return;
+      }
+
+      if (isIOS()) {
+        document.getElementById("iosHint").style.display = "flex";
+        return;
+      }
+
+      if (isAndroid()) {
+        document.getElementById("androidHint").style.display = "flex";
+      }
+    }
+
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-    });
 
-    actionBtn.addEventListener("click", async (e) => {
-      if (
-        deferredPrompt &&
-        !localStorage.getItem("appInstalled") &&
-        actionBtn.textContent.includes("רגע של אור בכף ידך")
-      ) {
-        e.preventDefault();
-
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-
-        if (outcome === "accepted") {
-          localStorage.setItem("appInstalled", "true");
-          hideActionButton();
-        }
-
-        deferredPrompt = null;
-
-        let count = Number(localStorage.getItem("drawCount") || 0);
+      const count = Number(localStorage.getItem("drawCount") || 0);
+      if (!isStandalone() && count >= 1) {
         updateActionButton(count);
       }
     });
@@ -605,8 +691,15 @@
       localStorage.setItem("appInstalled", "true");
       deferredPrompt = null;
 
-      let count = Number(localStorage.getItem("drawCount") || 0);
+      const count = Number(localStorage.getItem("drawCount") || 0);
       updateActionButton(count);
+    });
+
+    actionBtn.addEventListener("click", async (e) => {
+      if (currentActionMode === "install") {
+        e.preventDefault();
+        await handleInstallClick();
+      }
     });
 
     shareMiniBtn.addEventListener("click", () => {
@@ -699,60 +792,19 @@
     cardImg.src = backUrl;
     drawBtn.addEventListener("click", drawCard);
 
-    function isIOS() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent);
-}
+    window.addEventListener("load", () => {
+      if (isStandalone()) {
+        localStorage.setItem("appInstalled", "true");
+      }
+      const count = Number(localStorage.getItem("drawCount") || 0);
+      updateActionButton(count);
+    });
 
-function isInStandaloneMode() {
-  return ('standalone' in window.navigator) && window.navigator.standalone;
-}
-
-function closeIosHint() {
-  document.getElementById('iosHint').style.display = 'none';
-}
-
-// показать подсказку
-window.addEventListener('load', () => {
-  if (isIOS() && !isInStandaloneMode()) {
-    document.getElementById('iosHint').style.display = 'flex';
-  }
-});
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("sw.js");
       });
     }
   </script>
-  <div id="iosHint" class="ios-hint">
-  <div class="ios-hint-card">
-    
-    <div class="ios-hint-title">
-      כדי שהאור הזה יהיה תמיד איתך ✨
-    </div>
-
-    <div class="ios-hint-text">
-      אפשר להוסיף את האפליקציה למסך הבית שלך.<br><br>
-
-      לחצי על כפתור השיתוף של הטלפון ⬆️<br>
-      (למעלה או למטה במסך, לא בתוך האפליקציה)<br><br>
-
-      גללי למטה<br>
-      ובחרי "הוסף למסך הבית"<br><br>
-
-      ואז – היא תמיד תהיה כאן, במרחק נגיעה 💫<br><br>
-
-      <span class="ios-hint-small">
-        אם לא מופיע כפתור השיתוף:<br>
-        לחצי על כתובת האתר שמופיעה במסך<br>
-        ואז כפתור השיתוף יופיע ✨
-      </span>
-    </div>
-
-    <button class="ios-hint-btn" onclick="closeIosHint()">
-      הבנתי
-    </button>
-
-  </div>
-</div>
 </body>
 </html>
